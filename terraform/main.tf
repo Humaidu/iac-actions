@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 #s3 bucket creation
-resource "aws_s3_bucket" "example" {
-    bucket = "hash-terraform-state-bucket"
-    tags = {
-        Name = "hash-terraform-state"
-    }
-}
+# resource "aws_s3_bucket" "example" {
+#     bucket = "hash-terraform-state-bucket"
+#     tags = {
+#         Name = "hash-terraform-state"
+#     }
+# }
 
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
@@ -41,6 +41,7 @@ module "eks" {
 
 module "ecr" {
   source = "terraform-aws-modules/ecr/aws"
+  version = "~> 2.0"
 
   repository_name = "hash-iac-actions"
   registry_scan_type = "BASIC"
