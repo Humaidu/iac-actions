@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-    bucket = "hash-terraform-state-bucket-04"
+    bucket = "hash-terraform-state-bucket"
     tags = {
         Name = "hash-terraform-state"
     }
