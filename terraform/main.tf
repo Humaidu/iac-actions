@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"  # Specify your desired AWS region
 }
 
-##s3 bucket creation
+#s3 bucket creation
 # resource "aws_s3_bucket" "example" {
 #     bucket = "hash-terraform-state-bucket"
 #     tags = {
