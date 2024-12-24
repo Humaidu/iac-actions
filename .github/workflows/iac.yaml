@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Ingress Controller 
         if: steps.apply.outcome == 'success' && steps.kubeConfig.outcome == 'success'
-        run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
+        run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml --validate=false
 
   destroy:
     name: "Destroy Infra on AWS"
