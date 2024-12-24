@@ -46,10 +46,24 @@ module "ecr" {
   repository_name = "hash-iac-actions"
   registry_scan_type = "BASIC"
   repository_type = "private"
-
-  repository_lifecycle_policy = false
   repository_image_tag_mutability = "MUTABLE"
-
+  
+  repository_lifecycle_policy = jsonencode({
+  rules = [
+    {
+      rulePriority = 1
+      description  = "Retain all images"
+      selection = {
+        tagStatus  = "any"
+        countType  = "imageCountMoreThan"
+        countNumber = 100
+      }
+      action = {
+        type = "expire"
+      }
+    }
+  ]
+})
   tags = {
     Terraform   = "true"
   }

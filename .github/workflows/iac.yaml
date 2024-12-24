@@ -104,19 +104,19 @@ jobs:
         if: steps.apply.outcome == 'success'
         run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
 
-      # - name: Install Ingress Controller 
-      #   run: kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
+      - name: Install Ingress Controller 
+        run: kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
 
-      # - name: Empty ECR Repository
-      #   run: |
-      #     REPOSITORY_NAME=${{ vars.ECR_REPO }}
-      #     IMAGES=$(aws ecr list-images --repository-name $REPOSITORY_NAME --query 'imageIds[*]' --output json)
-      #     if [[ "$IMAGES" != "[]" ]]; then
-      #       echo "Deleting images from $REPOSITORY_NAME..."
-      #       aws ecr batch-delete-image --repository-name $REPOSITORY_NAME --image-ids "$IMAGES"
-      #     else
-      #       echo "No images found in $REPOSITORY_NAME."
-      #     fi
+      - name: Empty ECR Repository
+        run: |
+          REPOSITORY_NAME=${{ vars.ECR_REPO }}
+          IMAGES=$(aws ecr list-images --repository-name $REPOSITORY_NAME --query 'imageIds[*]' --output json)
+          if [[ "$IMAGES" != "[]" ]]; then
+            echo "Deleting images from $REPOSITORY_NAME..."
+            aws ecr batch-delete-image --repository-name $REPOSITORY_NAME --image-ids "$IMAGES"
+          else
+            echo "No images found in $REPOSITORY_NAME."
+          fi
 
       - name: Terraform destroy 
         id: destroy
